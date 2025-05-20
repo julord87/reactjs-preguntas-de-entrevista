@@ -10,8 +10,6 @@
 
     React fue creado por [Jordan Walke](https://github.com/jordwalke), un ingeniero de software que trabajaba en Facebook. React se implementó por primera vez en el News Feed de Facebook en 2011 y en Instagram en 2012.
 
-    **[⬆ Volver al inicio](#table-of-contents)**
-
 2.  ### ¿Cuál es la historia detrás de la evolución de React?
 
     La historia de ReactJS comenzó en 2010 con la creación de **XHP**. XHP es una extensión de PHP que mejoró la sintaxis del lenguaje de modo que los fragmentos de documentos XML se convirtieran en expresiones PHP válidas. Su propósito principal era crear elementos HTML personalizados y reutilizables.
@@ -22,8 +20,6 @@
 
     **Nota:** JSX proviene de la idea de XHP.
 
-    **[⬆ Volver al inicio](#table-of-contents)**
-
 3.  ### ¿Cuáles son las principales características de React?
 
     Las principales características de React son:
@@ -33,8 +29,6 @@
     - Soporta **renderizado del lado del servidor**, útil para optimización de motores de búsqueda (SEO).
     - Sigue un flujo de datos **unidireccional** (one-way data flow o data binding).
     - Utiliza componentes de UI **reutilizables/componibles** para desarrollar la vista.
-
-    **[⬆ Volver al inicio](#table-of-contents)**
 
 4.  ### ¿Qué es JSX?
 
@@ -77,8 +71,6 @@
      </details>
 
     **Nota:** JSX es más estricto que HTML.
-
-    **[⬆ Volver al inicio](#table-of-contents)**
 
 5.  ### ¿Cuál es la diferencia entre un Elemento y un Componente?
 
@@ -157,8 +149,6 @@
 
     > Piensa en los **elementos** como las instrucciones para crear la UI, y en los **componentes** como planos reutilizables que combinan lógica y estructura para generar esas instrucciones.
 
-    **[⬆ Volver al inicio](#table-of-contents)**
-
 6.  ### ¿Cómo se crean componentes en React?
 
     Los componentes son los bloques de construcción para crear interfaces de usuario (UI) en React. Hay dos formas posibles de crear un componente.
@@ -180,8 +170,6 @@
          }
        }
        ```
-
-    **[⬆ Volver al inicio](#table-of-contents)**
 
 7.  ### ¿Cuándo usar un Componente de Clase en lugar de un Componente de Función?
 
@@ -219,8 +207,6 @@
       <ExampleApplication />
     </ErrorBoundary>;
     ```
-
-    **[⬆ Volver al inicio](#table-of-contents)**
 
 8.  ### ¿Qué son los Componentes Puros?
 
@@ -272,8 +258,6 @@
     En componentes de clase, los componentes que extienden _`React.PureComponent`_ en lugar de _`React.Component`_ se convierten en componentes puros. Cuando los props o el estado cambian, _PureComponent_ hace una comparación superficial tanto de props como de estado invocando el método del ciclo de vida `shouldComponentUpdate()`.
 
     **Nota:** `React.memo()` es un componente de orden superior.
-
-    **[⬆ Volver al inicio](#table-of-contents)**
 
 9.  ### ¿Qué es el estado en React?
 
@@ -328,9 +312,7 @@
 
     El estado es similar a los props, pero es privado y completamente controlado por el componente, es decir, no es accesible para ningún otro componente hasta que el componente propietario decida pasarlo.
 
-    **[⬆ Volver al inicio](#table-of-contents)**
-
-10. ### ¿Qué son los props en React?
+10.  ### ¿Qué son los props en React?
 
     _Props_ son entradas para componentes. Son valores individuales u objetos que contienen un conjunto de valores pasados a componentes al crearlos (similares a atributos HTML). Los datos fluyen desde componentes padres a hijos.
 
@@ -370,9 +352,7 @@
 
     **Nota:** Los props son inmutables (no pueden modificarse por el componente hijo).
 
-    **[⬆ Volver al inicio](#table-of-contents)**
-
-11. ### ¿Cuál es la diferencia entre `state` y `props`?
+11.  ### ¿Cuál es la diferencia entre `state` y `props`?
 
     **State**:
 
@@ -397,11 +377,9 @@
     | Propósito         | Manejo de datos dinámicos | Personalizar componentes         |
     | Cómo se actualiza | `setState` o `useState`   | No se actualiza internamente     |
 
-    ---
+    ---   
 
-    **[⬆ Volver al inicio](#table-of-contents)**   
-
-12. ### ¿Cuál es la diferencia entre manejo de eventos en HTML y en React?
+12.  ### ¿Cuál es la diferencia entre manejo de eventos en HTML y en React?
 
     - En HTML se usan atributos en minúsculas (`onclick`), en React se usa camelCase (`onClick`).
     - En HTML se puede retornar `false` para evitar el comportamiento por defecto; en React se debe usar `event.preventDefault()`.
@@ -413,15 +391,13 @@
 
     ---
 
-    **[⬆ Volver al inicio](#table-of-contents)**
-
     ### 13. ¿Qué son los Synthetic Events en React?
 
 Son una abstracción que React crea para normalizar el comportamiento de eventos en diferentes navegadores. Proveen una API consistente y tienen métodos como `stopPropagation()` y `preventDefault()`. Aun así, podés acceder al evento nativo con `event.nativeEvent`.
 
 ---
 
-14. ### ¿Qué son las expresiones condicionales inline?
+14.  ### ¿Qué son las expresiones condicionales inline?
 
     Podés usar operadores ternarios o lógicos para renderizar JSX condicionalmente dentro del `return`.
 
@@ -441,9 +417,7 @@ Son una abstracción que React crea para normalizar el comportamiento de eventos
 
     ---
 
-    **[⬆ Volver al inicio](#table-of-contents)**
-
-15. ### ¿Qué es la `key` en un array de elementos y por qué es importante?
+15.  ### ¿Qué es la `key` en un array de elementos y por qué es importante?
 
     - La prop `key` ayuda a React a identificar qué ítems en una lista cambiaron, se agregaron o se eliminaron.
     - Deben ser **únicas** entre los hermanos.
@@ -457,17 +431,13 @@ Son una abstracción que React crea para normalizar el comportamiento de eventos
 
     ---
 
-    **[⬆ Volver al inicio](#table-of-contents)**
-
-16. ### ¿Qué es el Virtual DOM?
+16.  ### ¿Qué es el Virtual DOM?
 
     Es una representación **en memoria** del DOM real. React renderiza primero en el Virtual DOM, calcula las diferencias (diffing) y actualiza **solo lo necesario** en el DOM real. Este proceso se llama reconciliación.
 
     ---
 
-    **[⬆ Volver al inicio](#table-of-contents)**
-
-17. ### ¿Cómo funciona el Virtual DOM?
+17.  ### ¿Cómo funciona el Virtual DOM?
 
     1. Se renderiza una nueva versión del árbol en el Virtual DOM.
     2. Se compara con la versión anterior.
@@ -475,18 +445,14 @@ Son una abstracción que React crea para normalizar el comportamiento de eventos
 
     ---
 
-    **[⬆ Volver al inicio](#table-of-contents)**
-
-18. ### ¿Cuál es la diferencia entre Shadow DOM y Virtual DOM?
+18.  ### ¿Cuál es la diferencia entre Shadow DOM y Virtual DOM?
 
     - **Shadow DOM**: Especificación de los navegadores para encapsular estilos y estructura dentro de un Web Component.
     - **Virtual DOM**: Es una técnica de React y otras libs para mejorar performance de updates del DOM.
 
     ---
 
-    **[⬆ Volver al inicio](#table-of-contents)**
-
-19. ### ¿Qué es React Fiber?
+19.  ### ¿Qué es React Fiber?
 
     Es el nuevo motor de reconciliación de React (desde v16). Permite:
 
@@ -497,9 +463,7 @@ Son una abstracción que React crea para normalizar el comportamiento de eventos
 
     ---
 
-**[⬆ Volver al inicio](#table-of-contents)**
-
-20. ### ¿Cuál es el objetivo principal de React Fiber?
+20.  ### ¿Cuál es el objetivo principal de React Fiber?
 
     Permitir renderizado **incremental y asíncrono**:
 
@@ -507,5 +471,3 @@ Son una abstracción que React crea para normalizar el comportamiento de eventos
     - Pausar y reanudar tareas.
     - Asignar prioridades.
     - Soportar mejor los límites de error y múltiples elementos por render.
-
-    **[⬆ Volver al inicio](#table-of-contents)**
