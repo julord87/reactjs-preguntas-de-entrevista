@@ -1,6 +1,5 @@
 # 🧠 Preguntas de Entrevista sobre React - Traducción al Español
 
-
 ## 🧩 Core React
 
 ## React Básico
@@ -83,68 +82,80 @@
 
 5.  ### ¿Cuál es la diferencia entre un Elemento y un Componente?
 
-      **Elemento:**
-      - Un **Elemento** de React es un objeto plano de JavaScript que describe lo que quieres ver en la UI. Representa un nodo DOM o un componente en un momento específico.
-      - Los elementos son inmutables: una vez creados, no puedes cambiar sus propiedades. En su lugar, creas nuevos elementos para reflejar actualizaciones.
-      - Los elementos pueden anidarse dentro de otros elementos a través de sus `props`.
-      - Crear un elemento es una operación rápida y ligera; **no** crea nodos DOM reales ni renderiza nada directamente en la pantalla.
+    **Elemento:**
 
-        **Ejemplo (sin JSX):**
-        ```js
-        const element = React.createElement("button", { id: "login-btn" }, "Iniciar sesión");
-        ```
+    - Un **Elemento** de React es un objeto plano de JavaScript que describe lo que quieres ver en la UI. Representa un nodo DOM o un componente en un momento específico.
+    - Los elementos son inmutables: una vez creados, no puedes cambiar sus propiedades. En su lugar, creas nuevos elementos para reflejar actualizaciones.
+    - Los elementos pueden anidarse dentro de otros elementos a través de sus `props`.
+    - Crear un elemento es una operación rápida y ligera; **no** crea nodos DOM reales ni renderiza nada directamente en la pantalla.
 
-        **Sintaxis JSX equivalente:**
-        ```jsx
-        <button id="login-btn">Iniciar sesión</button>
-        ```
+      **Ejemplo (sin JSX):**
 
-        **El objeto devuelto por `React.createElement`:**
-        ```js
-        {
-          type: 'button',
-          props: {
-            id: 'login-btn',
-            children: 'Iniciar sesión'
-          }
+      ```js
+      const element = React.createElement(
+        "button",
+        { id: "login-btn" },
+        "Iniciar sesión"
+      );
+      ```
+
+      **Sintaxis JSX equivalente:**
+
+      ```jsx
+      <button id="login-btn">Iniciar sesión</button>
+      ```
+
+      **El objeto devuelto por `React.createElement`:**
+
+      ```js
+      {
+        type: 'button',
+        props: {
+          id: 'login-btn',
+          children: 'Iniciar sesión'
         }
-        ```
-        Los elementos luego se pasan al renderizador de React DOM (por ejemplo, `ReactDOM.render()`), que los traduce a nodos DOM reales.
+      }
+      ```
 
-        ---
+      Los elementos luego se pasan al renderizador de React DOM (por ejemplo, `ReactDOM.render()`), que los traduce a nodos DOM reales.
 
-      **Componente:**
-      - Un **Componente** es una función o clase que devuelve un elemento (o un árbol de elementos) para describir parte de la UI. Los componentes pueden aceptar entradas (llamadas **props**) y gestionar su propio estado (en el caso de componentes de clase o funciones con hooks).
-      - Los componentes permiten dividir la UI en partes independientes y reutilizables, cada una aislada y componible.
-      - Puedes definir un componente usando una función o una clase:
+      ***
 
-        **Ejemplo (Componente de Función con JSX):**
-        ```jsx
-        const Button = ({ handleLogin }) => (
-          <button id="login-btn" onClick={handleLogin}>
-            Iniciar sesión
-          </button>
+    **Componente:**
+
+    - Un **Componente** es una función o clase que devuelve un elemento (o un árbol de elementos) para describir parte de la UI. Los componentes pueden aceptar entradas (llamadas **props**) y gestionar su propio estado (en el caso de componentes de clase o funciones con hooks).
+    - Los componentes permiten dividir la UI en partes independientes y reutilizables, cada una aislada y componible.
+    - Puedes definir un componente usando una función o una clase:
+
+      **Ejemplo (Componente de Función con JSX):**
+
+      ```jsx
+      const Button = ({ handleLogin }) => (
+        <button id="login-btn" onClick={handleLogin}>
+          Iniciar sesión
+        </button>
+      );
+      ```
+
+      Cuando se compila JSX, se transforma en un árbol de llamadas a `React.createElement`:
+
+      ```js
+      const Button = ({ handleLogin }) =>
+        React.createElement(
+          "button",
+          { id: "login-btn", onClick: handleLogin },
+          "Iniciar sesión"
         );
-        ```
+      ```
 
-        Cuando se compila JSX, se transforma en un árbol de llamadas a `React.createElement`:
+      ***
 
-        ```js
-        const Button = ({ handleLogin }) =>
-          React.createElement(
-            "button",
-            { id: "login-btn", onClick: handleLogin },
-            "Iniciar sesión"
-          );
-        ```
+    **En resumen:**
 
-        ---
+    - **Elementos** son los bloques más pequeños en React: objetos que describen lo que quieres ver.
+    - **Componentes** son funciones o clases que devuelven elementos y encapsulan lógica, estructura y comportamiento para partes de tu UI.
 
-      **En resumen:**
-      - **Elementos** son los bloques más pequeños en React: objetos que describen lo que quieres ver.
-      - **Componentes** son funciones o clases que devuelven elementos y encapsulan lógica, estructura y comportamiento para partes de tu UI.
-
-       > Piensa en los **elementos** como las instrucciones para crear la UI, y en los **componentes** como planos reutilizables que combinan lógica y estructura para generar esas instrucciones.
+    > Piensa en los **elementos** como las instrucciones para crear la UI, y en los **componentes** como planos reutilizables que combinan lógica y estructura para generar esas instrucciones.
 
     **[⬆ Volver al inicio](#table-of-contents)**
 
@@ -324,23 +335,31 @@
     _Props_ son entradas para componentes. Son valores individuales u objetos que contienen un conjunto de valores pasados a componentes al crearlos (similares a atributos HTML). Los datos fluyen desde componentes padres a hijos.
 
     **Propósito:**
+
     1. Pasar datos personalizados
     2. Activar cambios de estado
     3. Acceder via `this.props.propReact` en componentes de clase
 
     **Ejemplo:**
+
     ```jsx
     <Elemento reactProp={"valor"} />
     ```
 
     **Componente funcional:**
+
     ```jsx
-    const Hijo = ({ nombre, edad = 25 }) => ( // Valor por defecto
-      <div>{nombre} - {edad}</div>
+    const Hijo = (
+      { nombre, edad = 25 } // Valor por defecto
+    ) => (
+      <div>
+        {nombre} - {edad}
+      </div>
     );
     ```
 
     **Componente de clase:**
+
     ```jsx
     class Hijo extends React.Component {
       render() {
@@ -350,5 +369,143 @@
     ```
 
     **Nota:** Los props son inmutables (no pueden modificarse por el componente hijo).
+
+    **[⬆ Volver al inicio](#table-of-contents)**
+
+11. ### ¿Cuál es la diferencia entre `state` y `props`?
+
+    **State**:
+
+    - Es un objeto interno del componente que contiene datos que pueden cambiar con el tiempo.
+    - Es **mutable**.
+    - Es **privado** y local al componente.
+    - Se actualiza con `setState` (en clases) o `useState` (en funciones).
+    - Cambiar el estado dispara un **re-render** del componente.
+
+    **Props**:
+
+    - Son valores que un componente **padre pasa a un hijo**.
+    - Son **inmutables** desde el punto de vista del componente hijo.
+    - Permiten configurar y reutilizar componentes.
+    - No pueden ser modificadas por el componente que las recibe.
+
+    | Característica    | `state`                   | `props`                          |
+    | ----------------- | ------------------------- | -------------------------------- |
+    | Quién lo gestiona | El propio componente      | El componente padre              |
+    | ¿Mutable?         | Sí                        | No (solo lectura)                |
+    | Alcance           | Local                     | Externo, recibido desde el padre |
+    | Propósito         | Manejo de datos dinámicos | Personalizar componentes         |
+    | Cómo se actualiza | `setState` o `useState`   | No se actualiza internamente     |
+
+    ---
+
+    **[⬆ Volver al inicio](#table-of-contents)**   
+
+12. ### ¿Cuál es la diferencia entre manejo de eventos en HTML y en React?
+
+    - En HTML se usan atributos en minúsculas (`onclick`), en React se usa camelCase (`onClick`).
+    - En HTML se puede retornar `false` para evitar el comportamiento por defecto; en React se debe usar `event.preventDefault()`.
+    - En React no se llama directamente la función con paréntesis: se pasa la **referencia**.
+
+    ```jsx
+    <button onClick={activarLaser}>Disparar</button>
+    ```
+
+    ---
+
+    **[⬆ Volver al inicio](#table-of-contents)**
+
+    ### 13. ¿Qué son los Synthetic Events en React?
+
+Son una abstracción que React crea para normalizar el comportamiento de eventos en diferentes navegadores. Proveen una API consistente y tienen métodos como `stopPropagation()` y `preventDefault()`. Aun así, podés acceder al evento nativo con `event.nativeEvent`.
+
+---
+
+14. ### ¿Qué son las expresiones condicionales inline?
+
+    Podés usar operadores ternarios o lógicos para renderizar JSX condicionalmente dentro del `return`.
+
+    ```jsx
+    {
+    mensajes.length > 0 && <p>Tienes {mensajes.length} mensajes nuevos.</p>;
+    }
+    ```
+
+    También podés usar ternarios:
+
+    ```jsx
+    {
+    isLoggedIn ? <Dashboard /> : <Login />;
+    }
+    ```
+
+    ---
+
+    **[⬆ Volver al inicio](#table-of-contents)**
+
+15. ### ¿Qué es la `key` en un array de elementos y por qué es importante?
+
+    - La prop `key` ayuda a React a identificar qué ítems en una lista cambiaron, se agregaron o se eliminaron.
+    - Deben ser **únicas** entre los hermanos.
+    - Evitá usar índices como `key` salvo que el orden nunca cambie.
+
+    ```jsx
+    {
+    tareas.map((t) => <li key={t.id}>{t.texto}</li>);
+    }
+    ```
+
+    ---
+
+    **[⬆ Volver al inicio](#table-of-contents)**
+
+16. ### ¿Qué es el Virtual DOM?
+
+    Es una representación **en memoria** del DOM real. React renderiza primero en el Virtual DOM, calcula las diferencias (diffing) y actualiza **solo lo necesario** en el DOM real. Este proceso se llama reconciliación.
+
+    ---
+
+    **[⬆ Volver al inicio](#table-of-contents)**
+
+17. ### ¿Cómo funciona el Virtual DOM?
+
+    1. Se renderiza una nueva versión del árbol en el Virtual DOM.
+    2. Se compara con la versión anterior.
+    3. Se actualiza **solo lo que cambió** en el DOM real.
+
+    ---
+
+    **[⬆ Volver al inicio](#table-of-contents)**
+
+18. ### ¿Cuál es la diferencia entre Shadow DOM y Virtual DOM?
+
+    - **Shadow DOM**: Especificación de los navegadores para encapsular estilos y estructura dentro de un Web Component.
+    - **Virtual DOM**: Es una técnica de React y otras libs para mejorar performance de updates del DOM.
+
+    ---
+
+    **[⬆ Volver al inicio](#table-of-contents)**
+
+19. ### ¿Qué es React Fiber?
+
+    Es el nuevo motor de reconciliación de React (desde v16). Permite:
+
+    - Interrumpir renders largos.
+    - Asignar prioridad a tareas.
+    - Mejorar animaciones y gestos.
+    - Hacer rendering incremental.
+
+    ---
+
+**[⬆ Volver al inicio](#table-of-contents)**
+
+20. ### ¿Cuál es el objetivo principal de React Fiber?
+
+    Permitir renderizado **incremental y asíncrono**:
+
+    - Dividir trabajo en chunks.
+    - Pausar y reanudar tareas.
+    - Asignar prioridades.
+    - Soportar mejor los límites de error y múltiples elementos por render.
 
     **[⬆ Volver al inicio](#table-of-contents)**
