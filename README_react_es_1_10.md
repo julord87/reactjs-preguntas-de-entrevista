@@ -481,3 +481,29 @@
     - Manejo de tareas prioritarias
 
     **[⬆ Volver al inicio](#table-of-contents)"
+
+### 21. ¿Qué son los componentes controlados?
+
+Son componentes que manejan el estado de los elementos de un formulario mediante React. Cada cambio se sincroniza con el estado del componente.
+
+**Pasos para implementarlos:**
+1. Inicializar el estado con `useState` o `this.state`.
+2. Vincular el valor del elemento al estado.
+3. Crear un manejador de eventos para actualizar el estado.
+4. Conectar el manejador al evento `onChange`.
+
+**Ejemplo:**
+```jsx
+import React, { useState } from "react";
+
+function Formulario() {
+  const [nombre, setNombre] = useState("");
+
+  const handleChange = (e) => {
+    setNombre(e.target.value);
+  };
+
+  return (
+    <input type="text" value={nombre} onChange={handleChange} />
+  );
+}
