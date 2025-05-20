@@ -930,3 +930,169 @@
     - `createPortal()` — Renderiza fuera del árbol padre.
 
     ---
+
+51. ### ¿Los Hooks reemplazan a los render props y los HOC (higher-order components)?
+
+    En muchos casos sí. Los Hooks permiten reutilizar lógica sin anidar componentes como ocurre con render props o HOC, reduciendo el árbol de componentes y mejorando la legibilidad.
+
+    ---
+
+52. ### ¿Qué es un componente de switching?
+
+    Es un componente que renderiza distintos componentes hijos según una prop determinada.
+
+    ```jsx
+    import HomePage from "./HomePage";
+    import AboutPage from "./AboutPage";
+    import ServicesPage from "./ServicesPage";
+    import ContactPage from "./ContactPage";
+
+    const PAGES = {
+      home: HomePage,
+      about: AboutPage,
+      services: ServicesPage,
+      contact: ContactPage,
+    };
+
+    const Page = (props) => {
+      const Handler = PAGES[props.page] || ContactPage;
+      return <Handler {...props} />;
+    };
+
+    Page.propTypes = {
+      page: PropTypes.oneOf(Object.keys(PAGES)).isRequired,
+    };
+    ```
+
+    ---
+
+53. ### ¿Qué son los Mixins en React?
+
+    Eran una forma de compartir lógica entre componentes en React clásico (`createClass`). Hoy están **obsoletos** y reemplazados por HOC o Hooks.
+
+    Ejemplo (no recomendado):
+
+    ```js
+    const PureRenderMixin = require("react-addons-pure-render-mixin");
+
+    const Button = React.createClass({
+      mixins: [PureRenderMixin],
+      // ...
+    });
+    ```
+
+    ---
+
+54. ### ¿Qué eventos Pointer soporta React?
+
+    React soporta los eventos Pointer que unifican mouse, touch y stylus:
+
+    - `onPointerDown`
+    - `onPointerMove`
+    - `onPointerUp`
+    - `onPointerCancel`
+    - `onGotPointerCapture`
+    - `onLostPointerCapture`
+    - `onPointerEnter`
+    - `onPointerLeave`
+    - `onPointerOver`
+    - `onPointerOut`
+
+    ---
+
+55. ### ¿Por qué los nombres de componentes deben comenzar con mayúscula?
+
+    En JSX, los nombres que empiezan con minúscula se interpretan como etiquetas HTML. Por eso los componentes deben tener nombres en mayúscula:
+
+    ```jsx
+    function MiComponente() { ... }
+    ```
+
+    Incluso si se exporta con minúscula, debe importarse con mayúscula para que React lo reconozca como componente:
+
+    ```jsx
+    import MiComponente from './miComponente';
+    ```
+
+    ---
+
+56. ### ¿React v16 admite atributos DOM personalizados?
+
+    Sí. A diferencia de versiones anteriores, ahora React conserva los atributos desconocidos en el DOM:
+
+    ```jsx
+    <div miatributo="valor" />
+    ```
+
+    Esto permite probar nuevas APIs del DOM o integrarse con librerías externas.
+
+    ---
+
+57. ### ¿Cómo hacer loops en JSX?
+
+    Usá `.map()`:
+
+    ```jsx
+    <ul>
+      {items.map((item) => (
+        <li key={item.id}>{item.nombre}</li>
+      ))}
+    </ul>
+    ```
+
+    No podés usar `for` directamente dentro de JSX porque no es una expresión.
+
+    ---
+
+58. ### ¿Cómo acceder a props dentro de comillas en JSX?
+
+    JSX no permite interpolación dentro de strings:
+
+    ❌ Incorrecto:
+    ```jsx
+    <img src="images/{props.image}" />
+    ```
+
+    ✅ Correcto:
+    ```jsx
+    <img src={"images/" + props.image} />
+    // o usando template strings:
+    <img src={`images/${props.image}`} />
+    ```
+
+    ---
+
+59. ### ¿Qué es un PropType array con shape?
+
+    Permite validar un array de objetos con estructura definida:
+
+    ```js
+    MyComponent.propTypes = {
+      items: PropTypes.arrayOf(
+        PropTypes.shape({
+          color: PropTypes.string.isRequired,
+          fontSize: PropTypes.number.isRequired,
+        })
+      ).isRequired,
+    };
+    ```
+
+    ---
+
+60. ### ¿Cómo aplicar clases condicionales en JSX?
+
+    No se puede usar `{}` dentro de `""`:
+
+    ❌ Incorrecto:
+    ```jsx
+    <div className="box {isActive ? 'on' : 'off'}" />
+    ```
+
+    ✅ Correcto:
+    ```jsx
+    <div className={'box ' + (isActive ? 'on' : 'off')} />
+    // o con template strings
+    <div className={`box ${isActive ? 'on' : 'off'}`} />
+    ```
+
+    ---
