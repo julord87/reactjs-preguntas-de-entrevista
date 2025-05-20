@@ -10,6 +10,8 @@
 
     React fue creado por [Jordan Walke](https://github.com/jordwalke), un ingeniero de software que trabajaba en Facebook. React se implementó por primera vez en el News Feed de Facebook en 2011 y en Instagram en 2012.
 
+    ---
+
 2.  ### ¿Cuál es la historia detrás de la evolución de React?
 
     La historia de ReactJS comenzó en 2010 con la creación de **XHP**. XHP es una extensión de PHP que mejoró la sintaxis del lenguaje de modo que los fragmentos de documentos XML se convirtieran en expresiones PHP válidas. Su propósito principal era crear elementos HTML personalizados y reutilizables.
@@ -20,6 +22,8 @@
 
     **Nota:** JSX proviene de la idea de XHP.
 
+    ---
+
 3.  ### ¿Cuáles son las principales características de React?
 
     Las principales características de React son:
@@ -29,6 +33,8 @@
     - Soporta **renderizado del lado del servidor**, útil para optimización de motores de búsqueda (SEO).
     - Sigue un flujo de datos **unidireccional** (one-way data flow o data binding).
     - Utiliza componentes de UI **reutilizables/componibles** para desarrollar la vista.
+
+    ---
 
 4.  ### ¿Qué es JSX?
 
@@ -71,6 +77,8 @@
      </details>
 
     **Nota:** JSX es más estricto que HTML.
+
+    ---
 
 5.  ### ¿Cuál es la diferencia entre un Elemento y un Componente?
 
@@ -149,6 +157,8 @@
 
     > Piensa en los **elementos** como las instrucciones para crear la UI, y en los **componentes** como planos reutilizables que combinan lógica y estructura para generar esas instrucciones.
 
+    ---
+
 6.  ### ¿Cómo se crean componentes en React?
 
     Los componentes son los bloques de construcción para crear interfaces de usuario (UI) en React. Hay dos formas posibles de crear un componente.
@@ -170,6 +180,8 @@
          }
        }
        ```
+    
+    ---
 
 7.  ### ¿Cuándo usar un Componente de Clase en lugar de un Componente de Función?
 
@@ -207,6 +219,8 @@
       <ExampleApplication />
     </ErrorBoundary>;
     ```
+
+    ---
 
 8.  ### ¿Qué son los Componentes Puros?
 
@@ -258,6 +272,8 @@
     En componentes de clase, los componentes que extienden _`React.PureComponent`_ en lugar de _`React.Component`_ se convierten en componentes puros. Cuando los props o el estado cambian, _PureComponent_ hace una comparación superficial tanto de props como de estado invocando el método del ciclo de vida `shouldComponentUpdate()`.
 
     **Nota:** `React.memo()` es un componente de orden superior.
+
+    ---
 
 9.  ### ¿Qué es el estado en React?
 
@@ -312,6 +328,8 @@
 
     El estado es similar a los props, pero es privado y completamente controlado por el componente, es decir, no es accesible para ningún otro componente hasta que el componente propietario decida pasarlo.
 
+    ---
+
 10. ### ¿Qué son los props en React?
 
     _Props_ son entradas para componentes. Son valores individuales u objetos que contienen un conjunto de valores pasados a componentes al crearlos (similares a atributos HTML). Los datos fluyen desde componentes padres a hijos.
@@ -351,6 +369,8 @@
     ```
 
     **Nota:** Los props son inmutables (no pueden modificarse por el componente hijo).
+
+    ---
 
 11. ### ¿Cuál es la diferencia entre `state` y `props`?
 
@@ -393,9 +413,9 @@
 
     ### 13. ¿Qué son los Synthetic Events en React?
 
-Son una abstracción que React crea para normalizar el comportamiento de eventos en diferentes navegadores. Proveen una API consistente y tienen métodos como `stopPropagation()` y `preventDefault()`. Aun así, podés acceder al evento nativo con `event.nativeEvent`.
+    Son una abstracción que React crea para normalizar el comportamiento de eventos en diferentes navegadores. Proveen una API consistente y tienen métodos como `stopPropagation()` y `preventDefault()`. Aun así, podés acceder al evento nativo con `event.nativeEvent`.
 
----
+    ---
 
 14. ### ¿Qué son las expresiones condicionales inline?
 
