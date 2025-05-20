@@ -773,3 +773,160 @@
     - `createPortal()`
 
     ---
+
+41. ### ¿Qué es `ReactDOMServer`?
+
+    El objeto `ReactDOMServer` permite renderizar componentes a HTML estático, normalmente desde un servidor Node (SSR - Server Side Rendering).
+
+    Métodos principales:
+    - `renderToString()`
+    - `renderToStaticMarkup()`
+
+    Ejemplo con Express:
+
+    ```js
+    import { renderToString } from "react-dom/server";
+    import MyPage from "./MyPage";
+
+    app.get("/", (req, res) => {
+      res.write("<!DOCTYPE html><html><head><title>My Page</title></head><body>");
+      res.write('<div id="content">');
+      res.write(renderToString(<MyPage />));
+      res.write("</div></body></html>");
+      res.end();
+    });
+    ```
+
+    ---
+
+42. ### ¿Cómo se usa `innerHTML` en React?
+
+    En React se usa `dangerouslySetInnerHTML` en lugar de `innerHTML`. Es una forma insegura de inyectar HTML directamente, por lo que debe usarse con cuidado.
+
+    ```jsx
+    function createMarkup() {
+      return { __html: "Primero &middot; Segundo" };
+    }
+
+    function MyComponent() {
+      return <div dangerouslySetInnerHTML={createMarkup()} />;
+    }
+    ```
+
+    ---
+
+43. ### ¿Cómo se aplican estilos en línea en React?
+
+    Se usa la prop `style`, que recibe un objeto JS con nombres de propiedad en camelCase:
+
+    ```jsx
+    const divStyle = {
+      color: "blue",
+      backgroundImage: "url(" + imgUrl + ")",
+    };
+
+    function HelloWorldComponent() {
+      return <div style={divStyle}>¡Hola Mundo!</div>;
+    }
+    ```
+
+    ---
+
+44. ### ¿Cómo se manejan eventos en React?
+
+    - Los nombres de eventos se escriben en camelCase (`onClick`).
+    - Se pasan funciones, no strings.
+
+    ```jsx
+    <button onClick={handleClick}>Clickeame</button>
+    ```
+
+    ---
+
+45. ### ¿Cuál es el impacto de usar índices como `key`?
+
+    Usar índices como `key` puede generar bugs y dificultar la optimización de React.
+
+    Mal ejemplo (con índice):
+    ```jsx
+    todos.map((todo, index) => <Todo {...todo} key={index} />);
+    ```
+
+    Buen ejemplo (con id estable):
+    ```jsx
+    todos.map((todo) => <Todo {...todo} key={todo.id} />);
+    ```
+
+    ---
+
+46. ### ¿Cómo renderizar condicionalmente componentes?
+
+    Se puede usar el operador lógico `&&` o un ternario.
+
+    ```jsx
+    {isLoggedIn && <Dashboard />}
+
+    {hasAddress
+      ? <p>{address}</p>
+      : <p>Dirección no disponible</p>}
+    ```
+
+    ---
+
+47. ### ¿Por qué hay que tener cuidado al hacer `spread` de props?
+
+    Al hacer `...props` se puede inyectar atributos no válidos al DOM. Es mejor desestructurar y usar `...rest` sólo donde haga falta.
+
+    ```jsx
+    const ComponentB = ({ isVisible, ...domProps }) => (
+      <div {...domProps}>Contenido</div>
+    );
+    ```
+
+    ---
+
+48. ### ¿Cómo se memoiza un componente?
+
+    Desde React 16.6 se puede usar `React.memo()` para evitar renders innecesarios si las props no cambian.
+
+    ```jsx
+    const MemoComponent = React.memo(function MemoComponent(props) {
+      return <div>{props.texto}</div>;
+    });
+    ```
+
+    También se puede usar una lib como `moize`:
+
+    ```jsx
+    import moize from "moize";
+    const MemoizedFoo = moize.react(MyComponent);
+    ```
+
+    ---
+
+49. ### ¿Cómo se implementa SSR (Server-Side Rendering)?
+
+    React permite renderizar en el servidor con `react-dom/server`:
+
+    ```js
+    import ReactDOMServer from "react-dom/server";
+    import App from "./App";
+
+    const html = ReactDOMServer.renderToString(<App />);
+    ```
+
+    Luego se inserta ese HTML en el documento para enviarlo al cliente.
+
+    ---
+
+50. ### ¿Para qué sirve el paquete `react-dom`?
+
+    Contiene métodos específicos para manipular el DOM:
+
+    - `render()` — Renderiza el componente en el DOM.
+    - `hydrate()` — Similar a render, pero hidrata markup generado por SSR.
+    - `unmountComponentAtNode()` — Quita un componente del DOM.
+    - `findDOMNode()` — Accede al nodo DOM de un componente (deprecated en strict mode).
+    - `createPortal()` — Renderiza fuera del árbol padre.
+
+    ---
