@@ -1096,3 +1096,168 @@
     ```
 
     ---
+
+61. ### ¿Cuál es la diferencia entre `react` y `react-dom`?
+
+    El paquete `react` incluye funciones como `React.createElement()`, `React.Component`, `React.Children`, y otros helpers para crear y gestionar componentes. Estas herramientas son universales (isomorphic) y se usan tanto en el cliente como en el servidor.
+
+    El paquete `react-dom` incluye funciones específicas del DOM como `ReactDOM.render()` y, en su versión de servidor (`react-dom/server`), incluye `ReactDOMServer.renderToString()` y `renderToStaticMarkup()` para renderizado del lado del servidor (SSR).
+
+    ---
+
+62. ### ¿Por qué se separó `react-dom` de `react`?
+
+    A partir de la versión 0.14, React separó la lógica del DOM en un paquete independiente: `react-dom`. Esto permitió que React pudiera adaptarse a otros entornos como `react-native`, `react-canvas` o `react-three`.
+
+    Esta separación facilita el uso compartido de componentes entre distintas plataformas (web, móvil, etc.).
+
+    ---
+
+63. ### ¿Cómo usar la etiqueta `label` en React?
+
+    En HTML, la etiqueta `label` utiliza el atributo `for`, pero como `for` es una palabra reservada en JavaScript, React utiliza `htmlFor`.
+
+    ```jsx
+    <label htmlFor="usuario">Usuario</label>
+    <input id="usuario" type="text" />
+    ```
+
+    ---
+
+64. ### ¿Cómo combinar múltiples objetos de estilo en línea?
+
+    En React web se usa el operador _spread_:
+
+    ```jsx
+    <button style={{ ...styles.boton, ...styles.submit }}>Enviar</button>
+    ```
+
+    En React Native se puede usar un array:
+
+    ```jsx
+    <View style={[styles.boton, styles.submit]} />
+    ```
+
+    ---
+
+65. ### ¿Cómo volver a renderizar la vista cuando se redimensiona el navegador?
+
+    Usá `useEffect` para escuchar eventos `resize` y `useState` para guardar las dimensiones.
+
+    ```jsx
+    import React, { useState, useEffect } from "react";
+
+    function WindowDimensions() {
+      const [size, setSize] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+
+      useEffect(() => {
+        const handleResize = () => {
+          setSize({ width: window.innerWidth, height: window.innerHeight });
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+      }, []);
+
+      return <span>{size.width} x {size.height}</span>;
+    }
+    ```
+
+    También se puede hacer con componentes de clase usando `componentDidMount` y `componentWillUnmount`.
+
+    ---
+
+66. ### ¿Cómo formatear (pretty print) un JSON en React?
+
+    Usá `JSON.stringify` con el parámetro `null, 2` dentro de un `<pre>`:
+
+    ```jsx
+    const data = { nombre: "Juan", edad: 42 };
+
+    function Usuario() {
+      return <pre>{JSON.stringify(data, null, 2)}</pre>;
+    }
+    ```
+
+    También funciona con clases:
+
+    ```jsx
+    class Usuario extends React.Component {
+      render() {
+        return <pre>{JSON.stringify(data, null, 2)}</pre>;
+      }
+    }
+    ```
+
+    ---
+
+67. ### ¿Por qué no se pueden modificar las `props`?
+
+    En React las `props` son **inmutables** y fluyen en un único sentido (de padre a hijo). El componente hijo puede leerlas, pero no modificarlas.
+
+    ---
+
+68. ### ¿Cómo enfocar un input al cargar la página?
+
+    Con `useRef` y `useEffect`:
+
+    ```jsx
+    import React, { useRef, useEffect } from "react";
+
+    function App() {
+      const inputRef = useRef(null);
+
+      useEffect(() => {
+        inputRef.current.focus();
+      }, []);
+
+      return (
+        <div>
+          <input defaultValue="No enfocado" />
+          <input ref={inputRef} defaultValue="Enfocado" />
+        </div>
+      );
+    }
+    ```
+
+    Con clases, se hace en `componentDidMount` usando una referencia:
+
+    ```jsx
+    class App extends React.Component {
+      componentDidMount() {
+        this.nombreInput.focus();
+      }
+
+      render() {
+        return (
+          <div>
+            <input defaultValue="No enfocado" />
+            <input
+              ref={(input) => (this.nombreInput = input)}
+              defaultValue="Enfocado"
+            />
+          </div>
+        );
+      }
+    }
+    ```
+
+    ---
+
+69. ### ¿Cómo obtener la versión de React en tiempo de ejecución?
+
+    Se puede acceder mediante `React.version`:
+
+    ```jsx
+    const version = React.version;
+
+    ReactDOM.render(
+      <div>{`Versión de React: ${version}`}</div>,
+      document.getElementById("app")
+    );
+    ```
+
+    ---
