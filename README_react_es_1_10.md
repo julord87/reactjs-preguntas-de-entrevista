@@ -491,3 +491,285 @@
     - Pausar y reanudar tareas.
     - Asignar prioridades.
     - Soportar mejor los límites de error y múltiples elementos por render.
+
+    ---
+
+21. ### ¿Qué son los componentes controlados?
+
+    Un componente controlado es aquel que maneja sus propios inputs a través del estado de React. Cada cambio en el input se gestiona mediante un handler, y el estado refleja siempre lo que se ve en pantalla.
+
+    Pasos para implementarlo:
+    1. Inicializar el estado con `useState`.
+    2. Asignar `value={estado}` al input.
+    3. Crear una función para manejar cambios.
+    4. Vincular esa función con `onChange`.
+
+    ```jsx
+    function UserProfile() {
+    const [username, setUsername] = useState("");
+
+    const handleChange = (e) => setUsername(e.target.value);
+
+    return (
+        <form>
+        <label>
+            Nombre:
+            <input type="text" value={username} onChange={handleChange} />
+        </label>
+        </form>
+    );
+    }
+    ```
+
+    ---
+
+22. ### ¿Qué son los componentes no controlados?
+    Son inputs cuyo valor no está ligado al estado de React, sino que se accede directamente al DOM usando `ref`, como en HTML tradicional.
+
+    Pasos:
+    1. Crear un ref con `useRef()`.
+    2. Asignarlo al input.
+    3. Leer el valor con `.current.value` al enviar el formulario.
+
+    ```jsx
+    function UserProfile() {
+    const usernameRef = useRef(null);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log("Username:", usernameRef.current.value);
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+        <label>
+            Nombre:
+            <input type="text" ref={usernameRef} />
+        </label>
+        <button type="submit">Enviar</button>
+        </form>
+    );
+    }
+    ```
+
+    ---
+
+23. ### ¿Cuál es la diferencia entre `createElement` y `cloneElement`?
+
+    - `React.createElement()` se usa para crear nuevos elementos desde cero (lo que hace JSX internamente).
+    - `React.cloneElement()` se usa para **copiar** un elemento y pasarle nuevas props.
+
+    ---
+
+24. ### ¿Qué es "Lifting State Up"?
+
+    Cuando dos o más componentes necesitan compartir datos, el estado se "eleva" a su ancestro común más cercano. De esta forma, se centraliza el control y se reparten los datos por props.
+
+    ---
+
+25. ### ¿Qué son los Higher-Order Components (HOC)?
+
+    Un HOC es una función que recibe un componente y retorna uno nuevo, con lógica adicional. Se usa para reutilizar comportamiento sin duplicar código.
+
+    ```js
+    const Enhanced = withLogging(Original);
+    ```
+
+    Casos de uso:
+    - Reutilización de lógica.
+    - Hijacking de renderizado.
+    - Manipulación de props o estado.
+
+    ---
+
+26. ### ¿Qué es la prop `children`?
+
+    Es una prop especial que permite pasar contenido hijo entre las etiquetas de un componente.
+
+    ```jsx
+    function Layout({ children }) {
+    return <main>{children}</main>;
+    }
+
+    <Layout>
+    <h1>Hola</h1>
+    </Layout>
+    ```
+
+    ---
+
+27. ### ¿Cómo se escriben comentarios en JSX?
+
+    Dentro del JSX, los comentarios se escriben con llaves `{}` y `/* */`:
+
+    ```jsx
+    <div>
+    {/* Comentario en línea */}
+    </div>
+    ```
+
+    ---
+
+28. ### ¿Qué es la reconciliación?
+
+    Es el proceso por el cual React compara el Virtual DOM con su versión anterior para aplicar solo los cambios necesarios al DOM real. Esto optimiza el renderizado y mejora la performance.
+
+    ---
+
+29. ### ¿`React.lazy()` permite imports con exports nombrados?
+
+    No. `React.lazy()` solo admite imports por `default`. Para importar un export nombrado, hay que crear un archivo intermedio que lo exporte como default.
+
+    ```js
+    // Intermediate.js
+    export { NamedComponent as default } from "./Original";
+    ```
+
+    ---
+
+30. ### ¿Por qué React usa `className` en lugar de `class`?
+
+    Porque `class` es una palabra reservada en JavaScript. JSX es sintaxis JavaScript, por lo tanto, se usa `className` para asignar clases CSS.
+
+    ---
+
+31. ### ¿Qué son los Fragments?
+
+    Los Fragments permiten agrupar múltiples elementos sin agregar nodos extra al DOM. Se usan con `<Fragment>` o la sintaxis corta `<></>`.
+
+    ```jsx
+    function Story({ title, description, date }) {
+      return (
+        <>
+          <h2>{title}</h2>
+          <p>{description}</p>
+          <p>{date}</p>
+        </>
+      );
+    }
+    ```
+
+    También se pueden usar Fragments con `key` al renderizar listas:
+
+    ```jsx
+    function StoryBook() {
+      return stories.map((story) => (
+        <Fragment key={story.id}>
+          <h2>{story.title}</h2>
+          <p>{story.description}</p>
+          <p>{story.date}</p>
+        </Fragment>
+      ));
+    }
+    ```
+
+    ---
+
+32. ### ¿Por qué es mejor usar Fragments que divs contenedores?
+
+    - Son más rápidos y consumen menos memoria (no generan nodos extra).
+    - Evitan romper diseños con CSS Grid o Flexbox.
+    - El DOM queda más limpio.
+
+    ---
+
+33. ### ¿Qué son los Portals en React?
+
+    Permiten renderizar elementos fuera del DOM padre. Se usa para overlays, modals o tooltips.
+
+    ```js
+    ReactDOM.createPortal(child, container);
+    ```
+
+    El primer argumento es el componente a renderizar, el segundo es un nodo del DOM donde insertarlo.
+
+    ---
+
+34. ### ¿Qué son los componentes sin estado (stateless)?
+
+    Son componentes cuya salida depende solo de las `props`, no del estado interno. Se implementan con funciones simples y no usan hooks ni métodos de ciclo de vida.
+
+    ---
+
+35. ### ¿Qué son los componentes con estado (stateful)?
+
+    Son aquellos que manejan su propio estado interno con `useState` o `this.state`.
+
+    ```jsx
+    const App = () => {
+      const [count, setCount] = useState(0);
+      const handleIncrement = () => setCount(count + 1);
+
+      return (
+        <>
+          <button onClick={handleIncrement}>Incrementar</button>
+          <span>Contador: {count}</span>
+        </>
+      );
+    };
+    ```
+
+    ---
+
+36. ### ¿Cómo validar `props` en React?
+
+    Se usa la librería `prop-types`. En desarrollo, React lanza advertencias si las `props` no coinciden con lo esperado.
+
+    ```js
+    import PropTypes from "prop-types";
+
+    function User({ name, age }) {
+      return (
+        <>
+          <h1>Bienvenido, {name}</h1>
+          <h2>Edad: {age}</h2>
+        </>
+      );
+    }
+
+    User.propTypes = {
+      name: PropTypes.string.isRequired,
+      age: PropTypes.number.isRequired,
+    };
+    ```
+
+    ---
+
+37. ### ¿Cuáles son las ventajas de React?
+
+    - Virtual DOM mejora la performance.
+    - JSX es legible y expresivo.
+    - SSR y CSR.
+    - Fácil integración con otros frameworks.
+    - Testeo sencillo con Jest.
+
+    ---
+
+38. ### ¿Y sus limitaciones?
+
+    - No es un framework completo.
+    - Curva de aprendizaje inicial.
+    - Integración con MVC requiere configuración.
+    - JSX puede parecer complejo al inicio.
+    - Muchos componentes pequeños pueden generar sobreingeniería.
+
+    ---
+
+39. ### ¿Cómo se recomienda hacer type checking?
+
+    - Para proyectos chicos: `prop-types`.
+    - Para proyectos grandes: usar Flow o TypeScript, que validan tipos en tiempo de compilación y ofrecen autocompletado.
+
+    ---
+
+40. ### ¿Para qué sirve el paquete `react-dom`?
+
+    Provee funciones específicas del DOM para usar al tope de la app:
+
+    - `render()`
+    - `hydrate()`
+    - `unmountComponentAtNode()`
+    - `findDOMNode()`
+    - `createPortal()`
+
+    ---
