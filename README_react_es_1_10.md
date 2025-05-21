@@ -1641,3 +1641,160 @@
     ```
 
     ---
+
+
+90. ### ¿Qué es React Intl?
+
+React Intl es una librería que facilita la internacionalización (i18n) en aplicaciones React. Proporciona componentes listos para usar y una API para formatear strings, fechas, números y manejar pluralizaciones. Forma parte del ecosistema FormatJS.
+
+---
+
+91. ### ¿Cuáles son las características principales de React Intl?
+
+1. Mostrar números con separadores.
+2. Mostrar fechas y horas correctamente.
+3. Mostrar fechas relativas al "ahora".
+4. Pluralizar etiquetas.
+5. Soporte para más de 150 idiomas.
+6. Funciona en el navegador y en Node.
+7. Está basado en estándares.
+
+---
+
+92. ### ¿Cuáles son las dos formas de formatear en React Intl?
+
+1. **Usando componentes de React:**
+
+```jsx
+<FormattedMessage
+  id={"account"}
+  defaultMessage={"The amount is less than minimum balance."}
+/>
+```
+
+2. **Usando la API:**
+
+```js
+const messages = defineMessages({
+  accountMessage: {
+    id: "account",
+    defaultMessage: "The amount is less than minimum balance.",
+  },
+});
+
+formatMessage(messages.accountMessage);
+```
+
+---
+
+93. ### ¿Cómo usar `<FormattedMessage>` como placeholder con React Intl?
+
+Los componentes `<Formatted... />` devuelven elementos, no texto plano. Para usar mensajes como `placeholder`, hay que usar `formatMessage()`.
+
+```jsx
+import { injectIntl, intlShape } from "react-intl";
+
+const MyComponent = ({ intl }) => {
+  const placeholder = intl.formatMessage({ id: "messageId" });
+  return <input placeholder={placeholder} />;
+};
+
+MyComponent.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(MyComponent);
+```
+
+---
+
+94. ### ¿Cómo acceder al locale actual en React Intl?
+
+```jsx
+import { injectIntl, intlShape } from "react-intl";
+
+const MyComponent = ({ intl }) => (
+  <div>{`El locale actual es ${intl.locale}`}</div>
+);
+
+MyComponent.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(MyComponent);
+```
+
+---
+
+95. ### ¿Cómo formatear fechas con React Intl?
+
+Usando `formatDate()` proporcionado por `injectIntl()`:
+
+```jsx
+import { injectIntl, intlShape } from "react-intl";
+
+const stringDate = this.props.intl.formatDate(date, {
+  year: "numeric",
+  month: "numeric",
+  day: "numeric",
+});
+
+const MyComponent = ({ intl }) => (
+  <div>{`La fecha formateada es ${stringDate}`}</div>
+);
+
+MyComponent.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(MyComponent);
+```
+
+---
+
+96. ### ¿Qué es el Shallow Renderer en pruebas con React?
+
+Permite renderizar un componente a un solo nivel de profundidad, útil para tests unitarios.
+
+```jsx
+import ShallowRenderer from "react-test-renderer/shallow";
+
+const renderer = new ShallowRenderer();
+renderer.render(<MyComponent />);
+
+const result = renderer.getRenderOutput();
+
+expect(result.type).toBe("div");
+expect(result.props.children).toEqual([
+  <span className="heading">Title</span>,
+  <span className="description">Description</span>,
+]);
+```
+
+---
+
+97. ### ¿Qué es el paquete `TestRenderer` en React?
+
+Permite renderizar componentes como objetos JS puros, sin depender del DOM o entorno nativo.
+
+```jsx
+import TestRenderer from "react-test-renderer";
+
+const testRenderer = TestRenderer.create(
+  <a href="https://facebook.com">Facebook</a>
+);
+
+console.log(testRenderer.toJSON());
+```
+
+---
+
+98. ### ¿Para qué sirve el paquete ReactTestUtils?
+
+Proporciona funciones para testear componentes React simulando el DOM. Está disponible como parte del paquete `react-dom/test-utils`.
+
+---
+
+99. ### ¿Qué es Jest?
+
+Jest es un framework de testing creado por Facebook basado en Jasmine. Ofrece mocks automáticos y un entorno `jsdom`. Se usa comúnmente para testear componentes React.
