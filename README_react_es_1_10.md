@@ -1799,6 +1799,8 @@ Proporciona funciones para testear componentes React simulando el DOM. Está dis
 
 Jest es un framework de testing creado por Facebook basado en Jasmine. Ofrece mocks automáticos y un entorno `jsdom`. Se usa comúnmente para testear componentes React.
 
+---
+
 100. ### ¿Cuáles son las ventajas de Jest sobre Jasmine?
 
 - Detecta automáticamente los tests dentro del código fuente.
