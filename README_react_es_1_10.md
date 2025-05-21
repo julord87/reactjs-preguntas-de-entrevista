@@ -1261,3 +1261,184 @@
     ```
 
     ---
+
+70. ### ¿Cómo agregar Google Analytics a React Router?
+
+    Podés escuchar cambios en el objeto `history` para registrar cada vista de página:
+
+    ```js
+    history.listen(function (location) {
+      window.ga("set", "page", location.pathname + location.search);
+      window.ga("send", "pageview", location.pathname + location.search);
+    });
+    ```
+
+    ---
+
+71. ### ¿Cómo aplicar prefijos de proveedor a estilos en línea?
+
+    React **no aplica automáticamente** prefijos de proveedor. Tenés que agregarlos manualmente:
+
+    ```jsx
+    <div
+      style={{
+        transform: "rotate(90deg)",
+        WebkitTransform: "rotate(90deg)", // con mayúscula
+        msTransform: "rotate(90deg)", // único prefijo en minúscula
+      }}
+    />
+    ```
+
+    ---
+
+72. ### ¿Cómo importar y exportar componentes con ES6?
+
+    Se recomienda usar `export default` al exportar componentes:
+
+    ```jsx
+    import User from "user";
+
+    export default function MyProfile() {
+      return <User type="customer">{/* ... */}</User>;
+    }
+    ```
+
+    Con clases:
+
+    ```jsx
+    import React from "react";
+    import User from "user";
+
+    export default class MyProfile extends React.Component {
+      render() {
+        return <User type="customer">{/* ... */}</User>;
+      }
+    }
+    ```
+
+    ---
+
+73. ### ¿Cuáles son las excepciones al nombrar componentes?
+
+    Aunque los nombres deben empezar en mayúscula, se permite usar nombres en minúscula si se accede mediante notación de objeto:
+
+    ```jsx
+    render() {
+      return <obj.component />;
+      // equivale a React.createElement(obj.component)
+    }
+    ```
+
+    ---
+
+74. ### ¿Se puede usar `async/await` en React puro?
+
+    Sí, siempre que el entorno soporte ES2017+. Herramientas como Create React App, Next.js y Remix ya lo hacen.
+
+    ```jsx
+    import { useEffect, useState } from "react";
+
+    function UserProfile() {
+      const [user, setUser] = useState(null);
+
+      useEffect(() => {
+        const fetchUser = async () => {
+          const response = await fetch("/api/user");
+          const data = await response.json();
+          setUser(data);
+        };
+        fetchUser();
+      }, []);
+
+      return user ? <div>Hola, {user.name}</div> : <div>Cargando...</div>;
+    }
+    ```
+
+    Si no usás Babel/Webpack, necesitás un plugin como `transform-async-to-generator`.
+
+    ---
+
+75. ### ¿Cuáles son las estructuras de carpetas comunes en proyectos React?
+
+    1. Agrupando por funcionalidad o ruta:
+
+    ```
+    common/
+      Avatar.js
+      Avatar.css
+      APIUtils.js
+      APIUtils.test.js
+    feed/
+      index.js
+      Feed.js
+      Feed.css
+      FeedStory.js
+      FeedStory.test.js
+    ```
+
+    2. Agrupando por tipo de archivo:
+
+    ```
+    api/
+      APIUtils.js
+      APIUtils.test.js
+    components/
+      Avatar.js
+      Avatar.css
+      Feed.js
+      Feed.css
+    ```
+
+    ---
+
+76. ### ¿Cuáles son los paquetes más usados para animación en React?
+
+    - `react-transition-group`
+    - `react-motion`
+
+    Ambas ofrecen soluciones declarativas para animaciones en componentes.
+
+    ---
+
+77. ### ¿Qué beneficios tiene usar módulos de estilos?
+
+    Evita repetir valores duros y promueve la reutilización. Por ejemplo:
+
+    ```js
+    export const colors = {
+      white,
+      black,
+      blue,
+    };
+
+    export const space = [0, 8, 16, 32, 64];
+    ```
+
+    Luego podés importar y usar:
+
+    ```js
+    import { space, colors } from "./styles";
+    ```
+
+    ---
+
+78. ### ¿Qué linters específicos para React son populares?
+
+    - `eslint-plugin-react`: para buenas prácticas con JSX y props.
+    - `eslint-plugin-jsx-a11y`: para mejorar accesibilidad (`alt`, `tabIndex`, etc.).
+
+    Se integran fácilmente en cualquier proyecto con ESLint.
+
+    ---
+
+79. ### ¿Qué es React Router?
+
+    Es una librería de routing para React que permite manejar múltiples vistas en una app SPA, manteniendo la URL sincronizada con la UI.
+
+    ---
+
+80. ### ¿En qué se diferencia React Router de la librería `history`?
+
+    React Router usa `history` internamente para interactuar con `window.history`, y además proporciona `memory history` para entornos sin navegador como React Native o tests con Node.js.
+
+    ---
