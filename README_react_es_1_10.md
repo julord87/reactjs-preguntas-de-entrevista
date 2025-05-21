@@ -1442,3 +1442,202 @@
     React Router usa `history` internamente para interactuar con `window.history`, y además proporciona `memory history` para entornos sin navegador como React Native o tests con Node.js.
 
     ---
+
+80. ### ¿En qué se diferencia React Router de la librería `history`?
+
+    React Router es un _wrapper_ de la librería `history`. Maneja la interacción con `window.history` y proporciona métodos de navegación con historial tipo browser, hash o memoria. Además, ofrece `memory history` para entornos sin `window`, como React Native o pruebas en Node.
+
+    ---
+
+81. ### ¿Cuáles son los componentes `<Router>` en React Router v6?
+
+    React Router v6 ofrece 4 routers principales:
+
+    1. **`<BrowserRouter>`**: usa el API de historia HTML5.
+    2. **`<HashRouter>`**: usa hash en la URL, útil en servidores estáticos.
+    3. **`<MemoryRouter>`**: guarda el historial en memoria, útil en tests.
+    4. **`<StaticRouter>`**: útil para renderizado en servidor (SSR).
+
+    Todos comparten un contexto común donde el objeto `router` contiene el historial.
+
+    ---
+
+82. ### ¿Para qué sirven los métodos `push()` y `replace()` de `history`?
+
+    Imaginá que el historial de navegación es un array:
+
+    - `push()` agrega una nueva entrada.
+    - `replace()` reemplaza la ubicación actual sin agregar una nueva entrada.
+
+    ---
+
+83. ### ¿Cómo navegar programáticamente con React Router v4?
+
+    Hay tres formas comunes:
+
+    1. **Con `withRouter()` HOC**:
+
+    ```jsx
+    import { withRouter } from "react-router-dom";
+
+    const Button = withRouter(({ history }) => (
+      <button onClick={() => history.push("/nueva-ruta")}>Ir</button>
+    ));
+    ```
+
+    2. **Con `render` en `<Route>`**:
+
+    ```jsx
+    import { Route } from "react-router-dom";
+
+    const Button = () => (
+      <Route
+        render={({ history }) => (
+          <button onClick={() => history.push("/nueva-ruta")}>Ir</button>
+        )}
+      />
+    );
+    ```
+
+    3. **Con contexto (`context`) — no recomendado**:
+
+    ```jsx
+    const Button = (props, context) => (
+      <button onClick={() => context.history.push("/nueva-ruta")}>Ir</button>
+    );
+
+    Button.contextTypes = {
+      history: React.PropTypes.shape({
+        push: React.PropTypes.func.isRequired,
+      }),
+    };
+    ```
+
+    ---
+
+84. ### ¿Cómo obtener parámetros de query en React Router v4?
+
+    Podés usar una de estas dos formas:
+
+    - Con `query-string`:
+
+    ```js
+    import queryString from "query-string";
+    const parsed = queryString.parse(props.location.search);
+    ```
+
+    - Con `URLSearchParams` nativo:
+
+    ```js
+    const params = new URLSearchParams(props.location.search);
+    const nombre = params.get("name");
+    ```
+
+    ⚠️ En IE11 vas a necesitar un polyfill para `URLSearchParams`.
+
+    ---
+
+85. ### ¿Por qué aparece el warning “Router may have only one child element”?
+
+    Porque las rutas deben envolverse en un `<Switch>` (React Router v4/v5):
+
+    ```jsx
+    import { Router, Switch, Route } from "react-router";
+
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/perfil" component={Profile} />
+      </Switch>
+    </Router>
+    ```
+
+    ---
+
+86. ### ¿Cómo pasar parámetros con `history.push()`?
+
+    ```js
+    this.props.history.push({
+      pathname: "/template",
+      search: "?name=sudheer",
+      state: { detail: response.data },
+    });
+    ```
+
+    `search` agrega parámetros de query y `state` puede usarse para enviar datos entre rutas.
+
+    ---
+
+87. ### ¿Cómo implementar una página 404 o "NotFound"?
+
+    Simplemente colocá una ruta sin `path` al final del `<Switch>`:
+
+    ```jsx
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route path="/perfil" component={Profile} />
+      <Route component={NotFound} />
+    </Switch>
+    ```
+
+    ---
+
+88. ### ¿Cómo obtener el objeto `history` en React Router v4?
+
+    1. Creá un módulo `history.js`:
+
+    ```js
+    import { createBrowserHistory } from "history";
+
+    export default createBrowserHistory();
+    ```
+
+    2. Usalo en lugar de `BrowserRouter`:
+
+    ```jsx
+    import { Router } from "react-router-dom";
+    import history from "./history";
+
+    <Router history={history}>
+      <App />
+    </Router>;
+    ```
+
+    3. Llamalo desde cualquier parte:
+
+    ```js
+    import history from "./history";
+    history.push("/otra-ruta");
+    ```
+
+    ---
+
+89. ### ¿Cómo redirigir automáticamente luego del login?
+
+    Usá el componente `<Redirect>`:
+
+    ```jsx
+    import { Redirect } from "react-router";
+
+    export default function Login({ isLoggedIn }) {
+      if (isLoggedIn) {
+        return <Redirect to="/dashboard" />;
+      }
+      return <div>Iniciá sesión</div>;
+    }
+    ```
+
+    Con clase:
+
+    ```jsx
+    class LoginComponent extends React.Component {
+      render() {
+        if (this.state.isLoggedIn) {
+          return <Redirect to="/dashboard" />;
+        }
+        return <div>Iniciá sesión</div>;
+      }
+    }
+    ```
+
+    ---
